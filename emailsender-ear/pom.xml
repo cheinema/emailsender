@@ -19,10 +19,6 @@
 					<version>6</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<modules>
-						<!--  ejbModule>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>emailsender-ejb</artifactId>
-						</ejbModule-->
 						<webModule>
 							<groupId>${project.groupId}</groupId>
 							<artifactId>emailsender-web</artifactId>
