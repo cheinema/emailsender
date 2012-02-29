@@ -74,4 +74,12 @@
 		<module>emailsender-web</module>
 		<module>emailsender-ear</module>
 	</modules>
+	<profiles>
+		<profile>
+			<id>it</id>
+			<modules>
+				<module>emailsender-arquillian-tests</module>
+			</modules>
+		</profile>
+	</profiles>
 </project>
