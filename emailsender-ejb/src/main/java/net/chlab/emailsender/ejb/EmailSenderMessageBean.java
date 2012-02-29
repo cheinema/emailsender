@@ -26,7 +26,7 @@ public class EmailSenderMessageBean implements MessageListener {
 
 	private static Logger logger = Logger.getLogger(EmailSenderMessageBean.class.getName());
 
-	@Resource(mappedName = "mail/james")
+	@Resource(mappedName = "mail/EmailSender")
 	private Session session;
 
 	public void onMessage(Message inMessage) {

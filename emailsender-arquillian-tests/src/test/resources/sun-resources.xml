@@ -10,7 +10,7 @@
 		resource-adapter-name="jmsra" />
 	<connector-resource enabled="true" jndi-name="jms/ConnectionFactory"
 		pool-name="jms/ConnectionFactoryPool" />
-	<mail-resource jndi-name="mail/james"
+	<mail-resource jndi-name="mail/EmailSender"
 		transport-protocol-class="org.jvnet.mock_javamail.MockTransport"
 		host="localhost" user="" from="test@example.com">
 	</mail-resource>
