@@ -1,13 +1,22 @@
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Index</title>
-    </h:head>
-    <h:body>
-        <h1>Index</h1>
-        <h:form>
-        	<h:commandButton value="Send" action="#{emailSender.send()}"/>
-        </h:form>
-    </h:body>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Email Sender</title>
+</h:head>
+<h:body>
+	<h1>Email Sender</h1>
+	<h:form>
+		<h:panelGrid columns="1">
+			<h:panelGrid columns="2" >
+				<h:outputLabel for="to" value="To:" />
+				<h:inputText id="to" value="#{emailSender.message.toAddress}" size="30" />
+				<h:outputLabel for="subject" value="Subject:" />
+				<h:inputText id="subject" value="#{emailSender.message.subject}" size="30" />
+				<h:outputLabel for="body" value="Message:" />
+				<h:inputTextarea id="body" value="#{emailSender.message.body}" cols="30" rows="5" />
+			</h:panelGrid>
+			<h:commandButton value="Send" action="#{emailSender.send()}" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
 </html>
