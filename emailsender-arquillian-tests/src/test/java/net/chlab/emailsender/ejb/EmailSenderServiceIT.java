@@ -44,7 +44,10 @@ public class EmailSenderServiceIT {
 		message.setBody("body test");
 
 		serviceUnderTest.send(message);
-		Thread.sleep(1000); // TODO Find a better way to wait for MDB processing
+
+		// TODO Find a better way to wait for MDB processing
+		// See https://issues.jboss.org/browse/ARQ-626
+		Thread.sleep(1000);
 
 		final Mailbox mailbox = Mailbox.get("user@example.com");
 		assertThat("Number of mails in mailbox", mailbox.size(), is(1));
