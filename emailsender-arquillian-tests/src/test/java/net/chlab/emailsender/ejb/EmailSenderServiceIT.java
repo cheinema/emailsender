@@ -1,7 +1,10 @@
 package net.chlab.emailsender.ejb;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -27,7 +30,7 @@ public class EmailSenderServiceIT {
 	@Deployment
 	public static JavaArchive createTestArchive() {
 		return ShrinkWrap.create(JavaArchive.class).addPackage("net.chlab.emailsender.bo")
-				.addClasses(EmailSenderService.class, EmailSenderMessageBean.class)
+				.addClasses(EmailSenderService.class, EmailSenderMessageBean.class, SyncEmailSenderMessageBean.class)
 				.addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
 	}
 
@@ -45,14 +48,15 @@ public class EmailSenderServiceIT {
 
 		serviceUnderTest.send(message);
 
-		// TODO Find a better way to wait for MDB processing
-		// See https://issues.jboss.org/browse/ARQ-626
-		Thread.sleep(1000);
+		assertThat("MDB processing done in given time", SyncEmailSenderMessageBean.LATCH.await(30, TimeUnit.SECONDS),
+				is(true));
 
 		final Mailbox mailbox = Mailbox.get("user@example.com");
 		assertThat("Number of mails in mailbox", mailbox.size(), is(1));
 		assertThat("Mail subject", mailbox.get(0).getSubject(), is("subject test"));
 		assertThat("Mail body", (String) mailbox.get(0).getContent(), is("body test"));
+
+		assertThat("MDB correctly cleaned up", SyncEmailSenderMessageBean.threadValue.get(), is(nullValue()));
 	}
 
 }
